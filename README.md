@@ -1,64 +1,110 @@
-Python Web Server Project
-Overview
-This project implements a multi-threaded HTTP/1.1 web server in Python for the Comp 2322 Computer Networking course. The server handles HTTP GET and HEAD requests, supports various status codes (200, 304, 400, 404, 415), implements conditional requests using Last-Modified and If-Modified-Since headers, and manages persistent (Connection: keep-alive) and non-persistent (Connection: close) connections. It also logs all requests to a file.
-Note: The 403 Forbidden status could not be tested on Apollo due to system restrictions enforcing rw permissions for the owner. The implementation is correct but was limited by the environment.
-Requirements
+# 🐍 Python Web Server Project
 
-Python: Version 3.6 or higher
-Dependencies: None (uses only Python standard library)
+## 📖 Overview
+This project implements a **multi-threaded HTTP/1.1 web server in Python** for the *Comp 2322 Computer Networking* course.  
 
-Directory Structure
+Key capabilities:  
+- Handles **HTTP GET** and **HEAD** requests.  
+- Supports status codes: **200**, **304**, **400**, **404**, **415**.  
+- Implements conditional requests via **Last-Modified** and **If-Modified-Since** headers.  
+- Manages **persistent** (`Connection: keep-alive`) and **non-persistent** (`Connection: close`) connections.  
+- Logs all requests to a file.  
 
-www/: Web root directory containing files to be served (e.g., index.html, test.jpg, test.pdf).
-server.py: Main server script that sets up the socket and handles multi-threading.
-file_handler.py: Module for file access, content retrieval, and MIME type handling.
-http_handler.py: Module for parsing HTTP requests and generating responses.
-utils.py: Helper functions for logging and default content generation.
-server.log: Log file recording all requests (timestamp, client IP, requested file, status code).
+> **Note:**  
+> The `403 Forbidden` status could not be tested on *Apollo* due to system restrictions enforcing read/write permissions for the owner. The implementation is correct but environment-limited.
 
-How to Run
+---
 
-Ensure Python 3.6+ is installed:python3 --version
+## 📦 Requirements
+- **Python**: Version `3.6+`  
+- **Dependencies**: None (uses only Python standard library)  
 
+---
 
-Place files to serve in the www/ directory (e.g., index.html).
-Run the server:python3 server.py
+## 📂 Directory Structure
+```
+www/             # Web root directory with served files (e.g., index.html, test.jpg, test.pdf)
+server.py        # Main server script (socket setup + multi-threading)
+file_handler.py  # File access, content retrieval, MIME type handling
+http_handler.py  # HTTP request parsing & response generation
+utils.py         # Helper functions for logging & default content generation
+server.log       # Log file: YYYY-MM-DD HH:MM:SS - IP - /path - STATUS
+```
 
+---
 
-Access the server at http://127.0.0.1:8080/ using a browser or tools like curl:curl http://127.0.0.1:8080/index.html
+## 🚀 How to Run
 
+1. **Verify Python version**:
+   ```bash
+   python3 --version
+   ```
 
+2. **Place files** to serve in the `www/` directory (e.g., `index.html`).  
 
-Features
+3. **Run the server**:
+   ```bash
+   python3 server.py
+   ```
 
-HTTP Methods: Supports GET and HEAD requests.
-Status Codes:
-200 OK: Successful requests.
-304 Not Modified: For conditional requests.
-400 Bad Request: For invalid requests.
-404 Not Found: For non-existent files.
-415 Unsupported Media Type: For unsupported file types (e.g., PDFs).
-403 Forbidden: Implemented but untestable on Apollo due to permission restrictions.
+4. **Access the server**:  
+   - Browser: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)  
+   - Or with `curl`:
+     ```bash
+     curl http://127.0.0.1:8080/index.html
+     ```
 
+---
 
-Conditional Requests: Handles Last-Modified and If-Modified-Since headers.
-Connection Handling: Supports Connection: keep-alive for persistent connections and Connection: close for non-persistent connections.
-Logging: Logs all requests to server.log in the format: YYYY-MM-DD HH:MM:SS - IP - /path - STATUS.
+## ✨ Features
 
-Notes
+### 🔹 HTTP Methods
+- **GET**
+- **HEAD**
 
-Default Port: The server runs on port 8080.
-Log Persistence: The log file (server.log) is appended to, not overwritten, across server restarts.
-Testing Environment: Tested on Apollo, a university-managed server. The 403 Forbidden status could not be triggered due to system policies enforcing rw permissions for the owner. All other functionalities were fully tested and work as expected.
+### 🔹 Status Codes
+| Code | Description | Notes |
+|------|-------------|-------|
+| `200 OK` | Successful requests | — |
+| `304 Not Modified` | Conditional requests | — |
+| `400 Bad Request` | Invalid requests | — |
+| `404 Not Found` | File does not exist | — |
+| `415 Unsupported Media Type` | Unsupported file types (e.g., PDF) | — |
+| `403 Forbidden` | Implemented, untestable on Apollo | Env. restriction |
 
-Limitations
+### 🔹 Conditional Requests
+- Implements **Last-Modified** and **If-Modified-Since** headers.
 
-Due to Apollo’s permission restrictions, the 403 Forbidden status could not be tested. The implementation checks for read access using os.access(), but the system prevented setting permissions to deny read access.
+### 🔹 Connection Handling
+- Supports `Connection: keep-alive`  
+- Supports `Connection: close`
 
-Author
+### 🔹 Logging
+- All requests logged in `server.log`:
+  ```
+  YYYY-MM-DD HH:MM:SS - IP - /path - STATUS
+  ```
 
-[Leung Chung Pang]
-Student ID: [23093488d]
-Course: Comp 2322 Computer Networking
-Submission Date: April 30, 2025
+---
 
+## 🗒 Notes
+- **Default Port**: `8080`  
+- **Log Persistence**: `server.log` is appended to (not overwritten) across restarts.  
+- **Testing Environment**:  
+  - Tested on **Apollo** (university-managed server).  
+  - `403 Forbidden` could not be triggered due to enforced read/write permissions.  
+  - All other functions fully tested and working.
+
+---
+
+## ⚠️ Limitations
+- `403 Forbidden` untestable in Apollo due to system restrictions.  
+- Implementation checks read access with `os.access()`, but permission denial simulation not possible in this environment.
+
+---
+
+## 👤 Author
+- **Name**: Leung Chung Pang  
+- **Student ID**: 23093488d  
+- **Course**: Comp 2322 Computer Networking  
+- **Submission Date**: *April 30, 2025*
